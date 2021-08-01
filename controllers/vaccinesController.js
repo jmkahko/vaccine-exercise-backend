@@ -25,7 +25,7 @@ const VaccinesController = {
           res.json(error); // Palautetaan virhe JSON muodossa.
         }
 
-        res.json(maara);
+        res.json({ "rokotetta": maara[0].rokotetta, "tilausta": maara[0].tilausta });
       }
     );
   },
@@ -44,7 +44,7 @@ const VaccinesController = {
           res.json(error); // Palautetaan virhe JSON muodossa.
         }
 
-        res.json({"kaytetytRokotteet": maara});
+        res.json({ "kaytetytRokotteet": maara });
       }
     );
   },
@@ -85,7 +85,7 @@ const VaccinesController = {
     Vaccines.aggregate(
       [
         { $match: { arrived: { $lt: saatuPaiva } } },
-        { $group: { _id: "VanhentuneetPullot", kpl: { $sum: 1 } } },
+        { $group: { _id: { rokote: "$vaccine" }, kpl: { $sum: 1 } } },
       ],
       (error, maara) => {
         if (error) {
@@ -117,7 +117,7 @@ const VaccinesController = {
         },
         {
           $group: {
-            _id: null,
+            _id: { rokote: "$vaccine" },
             pullojaYhteensa: { $sum: 1 },
             rokotteitaYhteensa: { $sum: "$injections" },
             rokotteetKaytetyt: {
@@ -167,7 +167,7 @@ const VaccinesController = {
         },
         {
           $group: {
-            _id: null,
+            _id: { rokote: "$vaccine" },
             pullojaYhteensa: { $sum: 1 },
             rokotteitaYhteensa: { $sum: "$injections" },
             rokotteetKaytetyt: {
@@ -217,7 +217,7 @@ const VaccinesController = {
         },
         {
           $group: {
-            _id: null,
+            _id: { rokote: "$vaccine" },
             pullojaYhteensa: { $sum: 1 },
             rokotteitaYhteensa: { $sum: "$injections" },
             rokotteetKaytetyt: {
