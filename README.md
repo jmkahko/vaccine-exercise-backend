@@ -1,7 +1,7 @@
 ## Solita tehtävä
-[Tehtävän Github-linkki](https://github.com/solita/vaccine-exercise-2021)
+Tehtävän [Github-linkki](https://github.com/solita/vaccine-exercise-2021)
 
-Projektin [frontend](linkki) Github-linkki
+Projektin [frontend](https://github.com/jmkahko/vaccine-exercise-frontend) Github-linkki
 
 ## Projektin käyttöönotto
 
