@@ -33,3 +33,8 @@ FRONTEND_URL = 'http://localhost:4200'
 5. Aja `npm i`
 
 6. Käynnistä projekti `npm start` komennolla
+
+## Testaus
+
+test kansiosta löytyy tehdyt testit
+Testaus onnistuu`npm test` komennolla
