@@ -4,9 +4,9 @@ Tehtävän [Github-linkki](https://github.com/solita/vaccine-exercise-2021)
 Projektin [frontend](https://github.com/jmkahko/vaccine-exercise-frontend) Github-linkki
 
 ## Projektin käyttöönotto
-
 1. Luo tunnukset ja tietokanta [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) palveluun
-2. Lisää aloitusdata kansiosta tiedot tietokantaan
+2. Kloonaa projekti
+3. Lisää aloitusdata kansiosta tiedot tietokantaan
 
 ```
 mongoimport --uri mongodb+srv://<KÄYTTÄJÄTUNNUS>:<SALASANA>@<MONGO CLUSTER>.doqpu.mongodb.net/<TIETOKANTA> --collection vaccines --type=json --file=Antiqua.source
@@ -19,7 +19,7 @@ mongoimport --uri mongodb+srv://<KÄYTTÄJÄTUNNUS>:<SALASANA>@<MONGO CLUSTER>.d
 ```
 
 
-3. Luo oheinen .env tiedosto projektin juureen
+4. Luo oheinen .env tiedosto projektin juureen
 
 ```
 # mongoDB Atlas
@@ -29,4 +29,7 @@ MONGODB_URL="TÄHÄN SALAINEN TIETOKANTALINKKI"
 FRONTEND_URL = 'http://localhost:4200'
 
 ```
-4. Käynnistä projekti `npm start` komennolla
+
+5. Aja `npm i`
+
+6. Käynnistä projekti `npm start` komennolla
