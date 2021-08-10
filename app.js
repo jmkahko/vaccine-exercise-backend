@@ -24,7 +24,7 @@ const corsOptions = {
 // Otetaan cors käyttöön apppiin
 app.use(cors(corsOptions));
 
-// mongoDB Atlas tietokantaan yhteyden muodostus
+// MongoDB tietokantaan yhteyden muodostus
 mongoose
   .connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
