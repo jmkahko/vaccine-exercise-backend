@@ -20,10 +20,10 @@ Projektin [frontend](https://github.com/jmkahko/vaccine-exercise-frontend) Githu
 
     - Jos käytössä paikallista tietokanta esim. Dockerissa
     ```
-    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -- authenticationDatabase=KÄYTTÄJÄTUNNUS --drop -d TIETOKANTA -c vaccines < Antiqua.source
-    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -- authenticationDatabase=KÄYTTÄJÄTUNNUS --drop -d TIETOKANTA -c vaccines < SolarBuddhica.source
-    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -- authenticationDatabase=KÄYTTÄJÄTUNNUS --drop -d TIETOKANTA -c vaccines < Zerpfy.source
-    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -- authenticationDatabase=KÄYTTÄJÄTUNNUS --drop -d TIETOKANTA -c vaccinations < vaccinations.source
+    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -d TIETOKANTA -c vaccines < Antiqua.source
+    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -d TIETOKANTA -c vaccines < SolarBuddhica.source
+    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -d TIETOKANTA -c vaccines < Zerpfy.source
+    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -d TIETOKANTA -c vaccinations < vaccinations.source
     ```
 
 4. Luo oheinen .env tiedosto projektin juureen
@@ -32,8 +32,8 @@ Projektin [frontend](https://github.com/jmkahko/vaccine-exercise-frontend) Githu
 # mongoDB Atlas
 MONGODB_URL="TÄHÄN SALAINEN TIETOKANTALINKKI"
 
-# Paikalliseen MongoDB:hen yhteys. Korvataan DB_USER, DB_PASSWORD, DB_NAME oikeilla tiedoilla
-PAIKALLINEN_MONGODB="mongodb://DB_USER:DB_PASSWORD@localhost:27017/DB_NAME"
+# Paikalliseen MongoDB:hen yhteys. Korvaa oikeat käyttäjätunnus, salasana ja tietokanta
+PAIKALLINEN_MONGODB="mongodb://KÄYTTÄJÄTUNNUS:SALASANA@localhost:27017/TIETOKANTA"
 
 # Cors frontendiin
 FRONTEND_URL = 'http://localhost:4200'
@@ -74,6 +74,8 @@ Testauksessa suoritetaan oheiset tarkistukset:
 
 * MongoDB
   - Tietokanta yhteys
+    - Atlas palveluun
+    - Paikallinen esim. Docker
   - #Rokotteisiin liittyvät tietokanta operaatiot
     - Uuden tallennus
     - Tallennetun haku
