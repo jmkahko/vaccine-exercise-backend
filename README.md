@@ -1,11 +1,11 @@
 ## Solita tehtävä
 Tehtävän [Github-linkki](https://github.com/solita/vaccine-exercise-2021)
 
-Projektin [frontend](https://github.com/jmkahko/vaccine-exercise-frontend) Github-linkki
+Projektin [frontend](https://github.com/jmkahko/vaccine-exercise-frontend) Github
 
 ## Projektin käyttöönotto
 1. Luo tunnukset ja tietokanta [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) palveluun
-2. Kloonaa projekti
+2. Kloonaa projekti `git clone https://github.com/jmkahko/vaccine-exercise-backend.git`
 3. Lisää aloitusdata kansiosta tiedot tietokantaan
 
 ```
