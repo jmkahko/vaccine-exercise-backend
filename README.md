@@ -20,10 +20,10 @@ Projektin [frontend](https://github.com/jmkahko/vaccine-exercise-frontend) Githu
 
     - Jos käytössä paikallista tietokanta esim. Dockerissa
     ```
-    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -- authenticationDatabase=admin --drop -d TIETOKANTA -c vaccines < Antiqua.source
-    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -- authenticationDatabase=admin --drop -d TIETOKANTA -c vaccines < SolarBuddhica.source
-    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -- authenticationDatabase=admin --drop -d TIETOKANTA -c vaccines < Zerpfy.source
-    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -- authenticationDatabase=admin --drop -d TIETOKANTA -c vaccinations < vaccinations.source
+    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -- authenticationDatabase=KÄYTTÄJÄTUNNUS --drop -d TIETOKANTA -c vaccines < Antiqua.source
+    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -- authenticationDatabase=KÄYTTÄJÄTUNNUS --drop -d TIETOKANTA -c vaccines < SolarBuddhica.source
+    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -- authenticationDatabase=KÄYTTÄJÄTUNNUS --drop -d TIETOKANTA -c vaccines < Zerpfy.source
+    docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -- authenticationDatabase=KÄYTTÄJÄTUNNUS --drop -d TIETOKANTA -c vaccinations < vaccinations.source
     ```
 
 4. Luo oheinen .env tiedosto projektin juureen
