@@ -38,28 +38,28 @@ FRONTEND_URL = 'http://localhost:4200'
 Testaukseen liittyvät testit löytyvät ./test kansiosta. Kansiossa on test.js tiedosto joka sisältää testit, tämän lisäksi löytyy testi dataa Vaccinations ja Vaccines collectioneihin.
 
 Testauksessa suoritetaan oheiset tarkistukset:
-✔ Enviroment .env tiedoston muuttujat
-  ✔ MONGODB_URL muuttujassa on merkkijono
-  ✔ FRONTEND_URL muuttujassa on merkkijono
+* Enviroment .env tiedoston muuttujat
+  - MONGODB_URL muuttujassa on merkkijono
+  - FRONTEND_URL muuttujassa on merkkijono
 
-✔ Modellien testaus
-  ✔ Vaccines model
-  ✔ Vaccinations model
+* Modellien testaus
+  - Vaccines model
+  - Vaccinations model
 
-✔ MongoDB
-  ✔ Tietokanta yhteys
-  #Rokotteisiin liittyvät tietokanta operaatiot
-    ✔ Uuden tallennus
-    ✔ Tallennetun haku
-    ✔ Tallennetun poisto
-  #Rokotuksiin liittyvät tietokanta operaatiot
-    ✔ Uuden tallennus
-    ✔ Tallennetun haku
-    ✔ Tallennetun poisto
-  #Aloitus data tietokannassa
-    ✔ Antiqua aloitus data tietokannassa
-    ✔ SolarBuddhica aloitus data tietokannassa
-    ✔ Zerpfy aloitus data tietokannassa
-    ✔ Rokotettujen määrä tietokannassa
+* MongoDB
+  - Tietokanta yhteys
+  - #Rokotteisiin liittyvät tietokanta operaatiot
+    - Uuden tallennus
+    - Tallennetun haku
+    - Tallennetun poisto
+  - #Rokotuksiin liittyvät tietokanta operaatiot
+    - Uuden tallennus
+    - Tallennetun haku
+    - Tallennetun poisto
+  - #Aloitus data tietokannassa
+    - Antiqua aloitus data tietokannassa
+    - SolarBuddhica aloitus data tietokannassa
+    - Zerpfy aloitus data tietokannassa
+    - Rokotettujen määrä tietokannassa
 
 Testit saa suoritettua `npm test` komennolla
