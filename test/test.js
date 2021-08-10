@@ -59,7 +59,7 @@ describe('Modellien testaus', function () {
 
 // MongoDB tietokanta testejä
 describe('MongoDB', function () {
-  describe('#Tietokanta yhteys. Kumpaa tietokanta yhteyttä käyttää', function () {
+  describe('#Tietokanta yhteys', function () {
     it('Atlas palveluun', function (done) {
       mongoose
         .connect(process.env.MONGODB_URL, {
@@ -73,7 +73,7 @@ describe('MongoDB', function () {
           done();
         })
         .catch((err) => {
-          console.error('Tietokanta yhteys epäonnistui: ' + err);
+          console.error('Atlas palvelun tietokanta yhteys epäonnistui');
         });
     });
 
@@ -90,7 +90,7 @@ describe('MongoDB', function () {
           done();
         })
         .catch((err) => {
-          console.error('Tietokanta yhteys epäonnistui: ' + err);
+          console.error('Paikallinen tietokanta yhteys epäonnistui');
         });
     });
   });
