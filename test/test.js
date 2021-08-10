@@ -60,39 +60,56 @@ describe('Modellien testaus', function () {
 // MongoDB tietokanta testejä
 describe('MongoDB', function () {
   describe('#Tietokanta yhteys', function () {
-    it('Atlas palveluun', function (done) {
-      mongoose
-        .connect(process.env.MONGODB_URL, {
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-          useFindAndModify: false,
-          useCreateIndex: true,
-        })
-        .then(() => {
-          //console.log('Tietokanta yhteys muodostettu');
-          done();
-        })
-        .catch((err) => {
-          console.error('Atlas palvelun tietokanta yhteys epäonnistui');
-        });
-    });
 
-    it('Paikallinen esim. Docker', function (done) {
-      mongoose
-        .connect(process.env.PAIKALLINEN_MONGODB, {
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-          useFindAndModify: false,
-          useCreateIndex: true,
-        })
-        .then(() => {
-          //console.log('Tietokanta yhteys muodostettu');
-          done();
-        })
-        .catch((err) => {
-          console.error('Paikallinen tietokanta yhteys epäonnistui');
-        });
-    });
+    // Tarkistetaan onko paikallinen tietokanta käytössä
+    if (process.env.PAIKALLINEN_MONGODB === 'mongodb://KÄYTTÄJÄTUNNUS:SALASANA@localhost:27017/TIETOKANTA') {
+      it('Paikallinen esim. Docker, ei ole käytössä', function (done) {
+        done();
+      });
+
+    } else {
+      it('Paikallinen esim. Docker', function (done) {
+        mongoose
+          .connect(process.env.PAIKALLINEN_MONGODB, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false,
+            useCreateIndex: true,
+          })
+          .then(() => {
+            //console.log('Tietokanta yhteys muodostettu');
+            done();
+          })
+          .catch((err) => {
+            console.error('Paikallinen tietokanta yhteys epäonnistui');
+          });
+      });
+    }
+
+    // Tarkistetaan onko MongoDB Atlas käytössä
+    if (process.env.MONGODB_URL === 'TÄHÄN SALAINEN TIETOKANTALINKKI') {
+      it('Atlas palvelu ei ole käytössä', function (done) {
+        done();
+      });
+
+    } else {
+      it('Atlas palveluun', function (done) {
+        mongoose
+          .connect(process.env.MONGODB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false,
+            useCreateIndex: true,
+          })
+          .then(() => {
+            //console.log('Tietokanta yhteys muodostettu');
+            done();
+          })
+          .catch((err) => {
+            console.error('Atlas palvelun tietokanta yhteys epäonnistui');
+          });
+      });
+    }
   });
 
   describe('#Rokotteisiin liittyvät tietokanta operaatiot', function () {
