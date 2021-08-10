@@ -31,6 +31,13 @@ describe('Enviroment .env tiedoston muuttujat', function () {
     }
   });
 
+  it('PAIKALLINEN_MONGODB muuttujassa on merkkijono', function (done) {
+    // Tarkistetaan, onko merkkijono pidempi kuin 1
+    if (process.env.PAIKALLINEN_MONGODB.length > 1) {
+      done();
+    }
+  });
+
   it('FRONTEND_URL muuttujassa on merkkijono', function (done) {
     // Tarkistetaan, onko merkkijono pidempi kuin 1
     if (process.env.FRONTEND_URL.length > 1) {
@@ -52,21 +59,40 @@ describe('Modellien testaus', function () {
 
 // MongoDB tietokanta testejä
 describe('MongoDB', function () {
-  it('Tietokanta yhteys', function (done) {
-    mongoose
-      .connect(process.env.MONGODB_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true,
-      })
-      .then(() => {
-        //console.log('Tietokanta yhteys muodostettu');
-        done();
-      })
-      .catch((err) => {
-        console.error('Tietokanta yhteys epäonnistui: ' + err);
-      });
+  describe('#Tietokanta yhteys. Kumpaa tietokanta yhteyttä käyttää', function () {
+    it('Atlas palveluun', function (done) {
+      mongoose
+        .connect(process.env.MONGODB_URL, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+          useFindAndModify: false,
+          useCreateIndex: true,
+        })
+        .then(() => {
+          //console.log('Tietokanta yhteys muodostettu');
+          done();
+        })
+        .catch((err) => {
+          console.error('Tietokanta yhteys epäonnistui: ' + err);
+        });
+    });
+
+    it('Paikallinen esim. Docker', function (done) {
+      mongoose
+        .connect(process.env.PAIKALLINEN_MONGODB, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+          useFindAndModify: false,
+          useCreateIndex: true,
+        })
+        .then(() => {
+          //console.log('Tietokanta yhteys muodostettu');
+          done();
+        })
+        .catch((err) => {
+          console.error('Tietokanta yhteys epäonnistui: ' + err);
+        });
+    });
   });
 
   describe('#Rokotteisiin liittyvät tietokanta operaatiot', function () {

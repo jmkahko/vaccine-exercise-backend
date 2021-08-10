@@ -65,6 +65,7 @@ Testaukseen liittyvät testit löytyvät ./test kansiosta. Kansiossa on test.js 
 Testauksessa suoritetaan oheiset tarkistukset:
 * Enviroment .env tiedoston muuttujat
   - MONGODB_URL muuttujassa on merkkijono
+  - PAIKALLINEN_MONGODB muuttujassa on merkkijono
   - FRONTEND_URL muuttujassa on merkkijono
 
 * Modellien testaus
