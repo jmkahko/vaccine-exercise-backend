@@ -99,9 +99,9 @@ Testaukseen liittyvät testit löytyvät ./test kansiosta.
   - Rokotteita jäljellä
   - 10 päivässä vanhenevat rokotteet
   - Virheellisen reitin statusCode 404 Not found
-  - Rokotteiden määrä sairaaloissa (54ms)
-  - Rokotetut sukupuolen, sairaalan ja rokotteen mukaan (55ms)
-  - Rokotettujen sukupuolten määrä (58ms)
+  - Rokotteiden määrä sairaaloissa
+  - Rokotetut sukupuolen, sairaalan ja rokotteen mukaan
+  - Rokotettujen sukupuolten määrä
 
 * Jotkut numerot auttavat sinua
   - Tilausten kokonaismäärä
