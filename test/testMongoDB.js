@@ -2,7 +2,7 @@
 const assert = require('assert'); // Mochajs testaukseen
 
 const mongoose = require('mongoose'); // MongoDB tietokantayhteys
-require('dotenv').config(); //dotenv -moduuli tarvitaan jos aiotaan käyttää .env -filua
+require('dotenv').config(); //dotenv -moduuli tarvitaan .env -tiedoston käyttöön
 
 // Modellit
 const Vaccinations = require("../models/Vaccinations");
@@ -24,7 +24,6 @@ describe('MongoDB', function () {
       it('Paikallinen esim. Docker, ei ole käytössä', function (done) {
         done();
       });
-
     } else {
       it('Paikallinen esim. Docker', function (done) {
         mongoose
@@ -35,7 +34,6 @@ describe('MongoDB', function () {
             useCreateIndex: true,
           })
           .then(() => {
-            //console.log('Tietokanta yhteys muodostettu');
             done();
           })
           .catch((err) => {
@@ -49,7 +47,6 @@ describe('MongoDB', function () {
       it('Atlas palvelu ei ole käytössä', function (done) {
         done();
       });
-
     } else {
       it('Atlas palveluun', function (done) {
         mongoose
@@ -60,7 +57,6 @@ describe('MongoDB', function () {
             useCreateIndex: true,
           })
           .then(() => {
-            //console.log('Tietokanta yhteys muodostettu');
             done();
           })
           .catch((err) => {
@@ -70,7 +66,7 @@ describe('MongoDB', function () {
     }
   });
 
-  describe('Rokotteisiin liittyvät tietokanta operaatiot', function () {
+  describe('Rokotteisiin liittyvät CRD tietokanta operaatiot', function () {
     it('Uuden tallennus', function (done) {
       newTestVaccines.save(done);
     });
@@ -98,15 +94,13 @@ describe('MongoDB', function () {
     });
   });
 
-  describe('Rokotuksiin liittyvät tietokanta operaatiot', function () {
+  describe('Rokotuksiin liittyvät CRD tietokanta operaatiot', function () {
     it('Uuden tallennus', function (done) {
       newTestVaccinations.save(done);
     });
 
     it('Tallennetun haku', function (done) {
-      Vaccinations.find({
-        vaccinationId: '1a2b3c4d-3a4b-3a4b-3a4b-1a2b3c4d5e6f'
-      }, (err) => {
+      Vaccinations.find({ vaccinationId: '1a2b3c4d-3a4b-3a4b-3a4b-1a2b3c4d5e6f' }, (err) => {
         // Jos tulee virhe consolilokataan virhe
         if (err) {
           console.log(err);
@@ -126,8 +120,9 @@ describe('MongoDB', function () {
     });
   })
 
+  // Testaan, että löytyy joku arvo tietokannasta jokaisesta rokotteesta
   describe('Aloitus data tietokannassa', function () {
-    it('Antiqua aloitus data tietokannassa', function (done) {
+    it('Antiqua', function (done) {
       Vaccines.findOne({ id: '6da3a8cf-c923-4c77-8f80-c69c935fe1df' })
         .then((antiquaId) => {
           assert(antiquaId.id === '6da3a8cf-c923-4c77-8f80-c69c935fe1df');
@@ -135,7 +130,7 @@ describe('MongoDB', function () {
         })
     });
 
-    it('SolarBuddhica aloitus data tietokannassa', function (done) {
+    it('SolarBuddhica', function (done) {
       Vaccines.findOne({ id: '19b7bddc-549b-4e1a-b8ca-9e4f25b3eb86' })
         .then((solarBuddhicaId) => {
           assert(solarBuddhicaId.id === '19b7bddc-549b-4e1a-b8ca-9e4f25b3eb86');
@@ -143,7 +138,7 @@ describe('MongoDB', function () {
         })
     });
 
-    it('Zerpfy aloitus data tietokannassa', function (done) {
+    it('Zerpfy', function (done) {
       Vaccines.findOne({ id: '6b160d09-e2ea-4e49-a291-96a33caa5f80' })
         .then((zerpfyId) => {
           assert(zerpfyId.id === '6b160d09-e2ea-4e49-a291-96a33caa5f80');

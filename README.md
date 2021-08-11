@@ -60,9 +60,9 @@ mongoose
 7. Käynnistä projekti `npm start` komennolla
 
 ## Testaus
-Testaukseen liittyvät testit löytyvät ./test kansiosta. Kansiossa on test.js tiedosto joka sisältää testit, tämän lisäksi löytyy testi dataa Vaccinations ja Vaccines collectioneihin.
+Testaukseen liittyvät testit löytyvät ./test kansiosta. 
 
-Testauksessa suoritetaan oheiset tarkistukset:
+### Testauksessa suoritetaan oheiset tarkistukset:
 * Enviroment .env tiedoston muuttujat
   - MONGODB_URL muuttujassa on merkkijono
   - PAIKALLINEN_MONGODB muuttujassa on merkkijono
@@ -76,18 +76,35 @@ Testauksessa suoritetaan oheiset tarkistukset:
   - Tietokanta yhteys
     - Atlas palveluun
     - Paikallinen esim. Docker
-  - #Rokotteisiin liittyvät tietokanta operaatiot
+  - Rokotteisiin liittyvät CRD tietokanta operaatiot
     - Uuden tallennus
     - Tallennetun haku
     - Tallennetun poisto
-  - #Rokotuksiin liittyvät tietokanta operaatiot
+  - Rokotuksiin liittyvät CRD tietokanta operaatiot
     - Uuden tallennus
     - Tallennetun haku
     - Tallennetun poisto
-  - #Aloitus data tietokannassa
+  - Aloitus data tietokannassa
     - Antiqua aloitus data tietokannassa
     - SolarBuddhica aloitus data tietokannassa
     - Zerpfy aloitus data tietokannassa
     - Rokotettujen määrä tietokannassa
+
+* Reittien testaus
+  - Tilaukset ja rokotteet
+  - Käytetyt rokotteet
+  - Tilaukset/rokotteet tuottajittain
+  - Vanhentuneet pullot
+  - Vanhenevat rokotteet
+  - Rokotteita jäljellä
+  - 10 päivässä vanhenevat rokotteet
+  - Virheellisen reitti statusCode 404 Not found
+
+* Jotkut numerot auttavat sinua
+  - Tilausten kokonaismäärä
+  - Tehdyt rokotukset
+  - 20.3.2021 saapui 61 tilausta
+  - "2021-04-12T11:10:06.473587Z" aikaan mennessä 12590 rokotetta on vanhentunut
+    - Tämä testi päätyy timeout virheeseen. Tuloksen haussa kestää liian kauan
 
 Testit saa suoritettua `npm test` komennolla

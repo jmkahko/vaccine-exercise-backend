@@ -85,4 +85,15 @@ describe('Reittien testaus', function () {
         done();
       });
   });
+
+  it('Virheellisen reitti statusCode 404 Not found', function (done) {
+    server
+      .get(`/vaccines/random`)
+      .expect("Content-type", /json/)
+      .expect(200) // THis is HTTP response
+      .end(function (err, res) {
+        res.status.should.equal(404); // Palautuuko vastaus statusCode 404
+        done();
+      });
+  });
 });

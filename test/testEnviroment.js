@@ -1,4 +1,4 @@
-require('dotenv').config(); //dotenv -moduuli tarvitaan jos aiotaan käyttää .env -filua
+require('dotenv').config(); //dotenv -moduuli tarvitaan .env -tiedoston käyttöön
 
 // Löytyykö .env tiedoston ja muuttujien tarkistus
 describe('Enviroment .env tiedoston muuttujat', function () {
