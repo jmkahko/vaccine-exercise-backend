@@ -96,4 +96,37 @@ describe('Reittien testaus', function () {
         done();
       });
   });
+
+  it('Rokotteiden määrä sairaaloissa', function (done) {
+    server
+      .get(`/vaccines/howManyVaccinesAreLeftToUsePerHealth/${dateEnd}`)
+      .expect("Content-type", /json/)
+      .expect(200) // THis is HTTP response
+      .end(function (err, res) {
+        res.status.should.equal(200); // Palautuuko vastaus statusCode 200
+        done();
+      });
+  });
+
+  it('Rokotetut sukupuolen, sairaalan ja rokotteen mukaan', function (done) {
+    server
+      .get(`/vaccines/howManyGenderVaccinationsPerHealt/${dateStart}`)
+      .expect("Content-type", /json/)
+      .expect(200) // THis is HTTP response
+      .end(function (err, res) {
+        res.status.should.equal(200); // Palautuuko vastaus statusCode 200
+        done();
+      });
+  });
+
+  it('Rokotettujen sukupuolten määrä', function (done) {
+    server
+      .get(`/vaccines/howManyGenderVaccinations/${dateStart}`)
+      .expect("Content-type", /json/)
+      .expect(200) // THis is HTTP response
+      .end(function (err, res) {
+        res.status.should.equal(200); // Palautuuko vastaus statusCode 200
+        done();
+      });
+  });
 });

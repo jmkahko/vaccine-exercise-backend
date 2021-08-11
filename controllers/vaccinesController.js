@@ -242,6 +242,106 @@ const VaccinesController = {
         res.json(maara);
       }
     );
+  },
+
+  // Kuinka monta mitäkin rokotetta on sairaaloissa
+  howManyVaccinesAreLeftToUsePerHealth: (req, res) => {
+    // Url reitistä saatu päivämäärä. Haetaan tiedot päivämäärästä 30 päivää taaksepäin
+    // Haetaan paivamuunnosMiinus functiosta muutettu päiväarvo aloituspäiväksi
+    let saatuPaiva = paivamuunnosMiinus(req.params.date, 30);
+
+    Vaccines.aggregate(
+      [
+        { $match: { arrived: { $gt: saatuPaiva } } }, // Saadusta päivästä -30 päivää eteenpäin
+        {
+          $lookup: {
+            from: "vaccinations",
+            localField: "id",
+            foreignField: "sourceBottle",
+            as: "rokotetut",
+          },
+        },
+        {
+          $group: {
+            _id: {
+              sairaala: "$healthCareDistrict",
+              rokote: "$vaccine"
+
+            },
+            pullojaYhteensa: { $sum: 1 },
+            rokotteitaYhteensa: { $sum: "$injections" },
+            rokotteetKaytetyt: {
+              $sum: { $size: "$rokotetut" },
+            },
+          },
+        },
+      ],
+      (error, maara) => {
+        if (error) {
+          console.log(error); // Lähetetään virhe myös konsoliin.
+          res.json(error); // Palautetaan virhe JSON muodossa.
+        }
+
+        res.json(maara);
+      }
+    );
+  },
+
+  // Millä rokotteella on missäkin sairaalassa rokotettu sukupuolen mukaan
+  howManyGenderVaccinationsPerHealt: (req, res) => {
+    // Url reitistä saatu päivämäärä
+    let saatuPaiva = req.params.date;
+
+    Vaccinations.aggregate([
+      { $match: { vaccinationDate: { $lt: saatuPaiva } } },
+      { $unwind: "$_id" },
+      {
+        $lookup: {
+          from: "vaccines",
+          localField: "sourceBottle",
+          foreignField: "id",
+          as: "sairaala",
+        },
+      },
+      { $group: { 
+        _id: { 
+          sairaala: "$sairaala.healthCareDistrict", rokote: "$sairaala.vaccine", sukupuoli: "$gender" }, 
+          count: { $sum: 1 } 
+        } 
+      },
+
+    ],
+    (error, maara) => {
+      if (error) {
+        console.log(error); // Lähetetään virhe myös konsoliin.
+        res.json(error); // Palautetaan virhe JSON muodossa.
+      }
+      res.json(maara);
+    });
+  },
+
+  // Kuinka monta mitäkin sukupuolta on rokotettu
+  howManyGenderVaccinations: (req, res) => {
+    // Url reitistä saatu päivämäärä
+    let saatuPaiva = req.params.date;
+
+    Vaccinations.aggregate([
+      { $match: { vaccinationDate: { $lt: saatuPaiva } } },
+      { $group: {
+        _id: 
+          { sukupuoli: "$gender" }, 
+          count: { $sum: 1 }
+        }
+      }
+    ],
+    (error, maara) => {
+      if (error) {
+        console.log(error); // Lähetetään virhe myös konsoliin.
+        res.json(error); // Palautetaan virhe JSON muodossa.
+      }
+      res.json(maara);
+    }
+  );
   }
 };
 
