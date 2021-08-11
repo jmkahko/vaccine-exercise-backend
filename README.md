@@ -98,7 +98,7 @@ Testaukseen liittyvät testit löytyvät ./test kansiosta.
   - Vanhenevat rokotteet
   - Rokotteita jäljellä
   - 10 päivässä vanhenevat rokotteet
-  - Virheellisen reitti statusCode 404 Not found
+  - Virheellisen reitin statusCode 404 Not found
 
 * Jotkut numerot auttavat sinua
   - Tilausten kokonaismäärä

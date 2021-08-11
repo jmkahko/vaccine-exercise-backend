@@ -1,3 +1,4 @@
+// Modellien tuonti
 const Vaccinations = require("../models/Vaccinations");
 const Vaccines = require("../models/Vaccines");
 
@@ -10,7 +11,7 @@ const VaccinesController = {
 
     Vaccines.aggregate(
       [
-        { $match: { arrived: { $gt: saatuPaivaAlku, $lt: saatuPaivaLoppu } } },
+        { $match: { arrived: { $gt: saatuPaivaAlku, $lt: saatuPaivaLoppu } } }, // Rajataan alku- ja loppupäivän mukaan hakua
         {
           $group: {
             _id: null,
@@ -105,10 +106,11 @@ const VaccinesController = {
 
     Vaccines.aggregate(
       [
-        { $match: { arrived: { $lt: saatuPaiva } } },
-        { $unwind: "$id" },
+        { $match: { arrived: { $lt: saatuPaiva } } }, // Saadusta päivästä -30 päivää taaksepäin
+        { $unwind: "$id" }, // Purkaa dokumenttien alirakenteiden taulukot erillisiksi dokumenteiksi
         {
-          $lookup: {
+          // Liitetään vaccines collectionin id sarake vaccinations collectionin sourceBottle sarakkeeseen nimellä rokotetut
+          $lookup: { // Vasen ulkoliitos kahden collectionin välille
             from: "vaccinations",
             localField: "id",
             foreignField: "sourceBottle",
@@ -116,6 +118,7 @@ const VaccinesController = {
           },
         },
         {
+          // Lasketaan jokaisen rokotteen pullot ja rokotteet yhteensä. Käytetyt rokotteet saadaan laskettua miten monta rokotetut sarakkeessa rivejä
           $group: {
             _id: { rokote: "$vaccine" },
             pullojaYhteensa: { $sum: 1 },
@@ -152,7 +155,7 @@ const VaccinesController = {
 
     Vaccines.aggregate(
       [
-        { $match: { arrived: { $gt: saatuPaiva } } },
+        { $match: { arrived: { $gt: saatuPaiva } } }, // Saadusta päivästä -30 päivää eteenpäin
         { $unwind: "$id" },
         {
           $lookup: {
