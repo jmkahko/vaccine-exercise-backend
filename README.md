@@ -9,16 +9,15 @@ Projektin [frontend](https://github.com/jmkahko/vaccine-exercise-frontend) Githu
     - Tai paikalliseen tietokantaan
 2. Kloonaa projekti `git clone https://github.com/jmkahko/vaccine-exercise-backend.git`
 3. Lisää aloitusdata kansiosta tiedot tietokantaan
-
-    - Jos käytössä MongoDB Atlas palvelu
+  - Jos käytössä MongoDB Atlas palvelu
     ```
     mongoimport --uri mongodb+srv://<KÄYTTÄJÄTUNNUS>:<SALASANA>@<MONGO CLUSTER>.doqpu.mongodb.net/<TIETOKANTA> --collection vaccines --type=json --file=Antiqua.source
     mongoimport --uri mongodb+srv://<KÄYTTÄJÄTUNNUS>:<SALASANA>@<MONGO CLUSTER>.doqpu.mongodb.net/<TIETOKANTA> --collection vaccines --type=json --file=SolarBuddhica.source
     mongoimport --uri mongodb+srv://<KÄYTTÄJÄTUNNUS>:<SALASANA>@<MONGO CLUSTER>.doqpu.mongodb.net/<TIETOKANTA> --collection vaccines --type=json --file=Zerpfy.source
     mongoimport --uri mongodb+srv://<KÄYTTÄJÄTUNNUS>:<SALASANA>@<MONGO CLUSTER>.doqpu.mongodb.net/<TIETOKANTA> --collection vaccinations --type=json --file=vaccinations.source
-    ```
+      ```
 
-    - Jos käytössä paikallista tietokanta esim. Dockerissa
+  - Jos käytössä paikallista tietokanta esim. Dockerissa
     ```
     docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -d TIETOKANTA -c vaccines < Antiqua.source
     docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -d TIETOKANTA -c vaccines < SolarBuddhica.source
@@ -26,38 +25,48 @@ Projektin [frontend](https://github.com/jmkahko/vaccine-exercise-frontend) Githu
     docker exec -i mongodb_mongo_1 mongoimport -u KÄYTTÄJÄTUNNUS -p SALASANA -d TIETOKANTA -c vaccinations < vaccinations.source
     ```
 
-4. Luo oheinen .env tiedosto projektin juureen
+4. Indeksien luonti Vaccinations ja Vaccines collectioneille. Ilman indeksointia tietyt haut kestivät yli 10 sekunttia.
+  Indeksoinnin voi tehdä esim. [Robo 3T](https://robomongo.org/) -sovelluksella.
 
-```
-# mongoDB Atlas
-MONGODB_URL="TÄHÄN SALAINEN TIETOKANTALINKKI"
+  ```
+  // Indeksi id:lle nousevaan järjestykseen
+  db.getCollection('vaccines').createIndex({'id':1})
 
-# Paikalliseen MongoDB:hen yhteys. Korvaa oikeat käyttäjätunnus, salasana ja tietokanta
-PAIKALLINEN_MONGODB="mongodb://KÄYTTÄJÄTUNNUS:SALASANA@localhost:27017/TIETOKANTA"
+  // Indeksi sourceBottle nousevaan järjestykseen
+  db.getCollection('vaccinations').createIndex({'sourceBottle':1})
+  ```
 
-# Cors frontendiin
-FRONTEND_URL = 'http://localhost:4200'
-```
+5. Luo oheinen .env tiedosto projektin juureen
 
-5. Käy määrittelemässä app.js tiedostoon kumpaa tietokantaa käytetään. Löytyy riviltä 29
+  ```
+  # mongoDB Atlas
+  MONGODB_URL="TÄHÄN SALAINEN TIETOKANTALINKKI"
 
-```
-Käytetään MongoDB Atlas palvelua
-mongoose
-  .connect(process.env.MONGODB_URL, {
+  # Paikalliseen MongoDB:hen yhteys. Korvaa oikeat käyttäjätunnus, salasana ja tietokanta
+  PAIKALLINEN_MONGODB="mongodb://KÄYTTÄJÄTUNNUS:SALASANA@localhost:27017/TIETOKANTA"
 
-  })
+  # Cors frontendiin
+  FRONTEND_URL = 'http://localhost:4200'
+  ```
 
-Käytetään MongoDB paikallisella koneella
-mongoose
-  .connect(process.env.PAIKALLINEN_MONGODB, {
+6. Käy määrittelemässä app.js tiedostoon kumpaa tietokantaa käytetään. Löytyy riviltä 29
+  ```
+  Käytetään MongoDB Atlas palvelua
+  mongoose
+    .connect(process.env.MONGODB_URL, {
 
-  })
-```
+    })
 
-6. Aja `npm i`
+  Käytetään MongoDB paikallisella koneella
+  mongoose
+    .connect(process.env.PAIKALLINEN_MONGODB, {
 
-7. Käynnistä projekti `npm start` komennolla
+    })
+  ```
+
+7. Aja `npm i`
+
+8. Käynnistä projekti `npm start` komennolla
 
 ## Testaus
 Testaukseen liittyvät testit löytyvät ./test kansiosta. 
@@ -108,6 +117,5 @@ Testaukseen liittyvät testit löytyvät ./test kansiosta.
   - Tehdyt rokotukset
   - 20.3.2021 saapui 61 tilausta
   - "2021-04-12T11:10:06.473587Z" aikaan mennessä 12590 rokotetta on vanhentunut
-    - Tämä testi päätyy timeout virheeseen. Tuloksen haussa kestää liian kauan
 
 Testit saa suoritettua `npm test` komennolla
