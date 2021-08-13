@@ -26,7 +26,13 @@ const VaccinesController = {
           res.json(error); // Palautetaan virhe JSON muodossa.
         }
 
-        res.json({ "rokotetta": maara[0].rokotetta, "tilausta": maara[0].tilausta });
+        // Jos tulee undefined, niin lähetään tyhjä objekti
+        if (maara.length < 1) {
+          res.json({});
+        } else {
+          res.json({ "rokotetta": maara[0].rokotetta, "tilausta": maara[0].tilausta });
+        }
+        
       }
     );
   },
