@@ -248,11 +248,12 @@ const VaccinesController = {
   howManyVaccinesAreLeftToUsePerHealth: (req, res) => {
     // Url reitistä saatu päivämäärä. Haetaan tiedot päivämäärästä 30 päivää taaksepäin
     // Haetaan paivamuunnosMiinus functiosta muutettu päiväarvo aloituspäiväksi
-    let saatuPaiva = paivamuunnosMiinus(req.params.date, 30);
+    let alkuPaivaMuunnos = paivamuunnosMiinus(req.params.date, 30);
+    let saatuPaiva = req.params.date;
 
     Vaccines.aggregate(
       [
-        { $match: { arrived: { $gt: saatuPaiva } } }, // Saadusta päivästä -30 päivää eteenpäin
+        { $match: { arrived: { $gte: alkuPaivaMuunnos, $lte: saatuPaiva } } }, // Saadusta päivästä -30 päivää eteenpäin saatuun päivään
         {
           $lookup: {
             from: "vaccinations",
@@ -275,6 +276,13 @@ const VaccinesController = {
             },
           },
         },
+        {
+          $addFields: {
+            rokotteitaJaljella: {
+              $subtract: ["$rokotteitaYhteensa", "$rokotteetKaytetyt"],
+            },
+          },
+        }
       ],
       (error, maara) => {
         if (error) {
@@ -378,8 +386,8 @@ function paivamuunnosMiinus(paivaSaatu, miinusPaivaMaara) {
   let lopullinenPaiva =
     muunnosVuosi + "-" + muunnosKuukausi + "-" + muunnosPaiva + paivaLoppu;
 
-  console.log(paivaSaatu); // Tulostetaan saatu päiväarvo
-  console.log(lopullinenPaiva); // Tulostetaan muunnoksen jälkeen
+  console.log('paivaSaatu: ' + paivaSaatu); // Tulostetaan saatu päiväarvo
+  console.log('paivaLopullinen: ' + lopullinenPaiva); // Tulostetaan muunnoksen jälkeen
 
   // Palautetaan 30 päivää vähennetty päivä takaisin
   return lopullinenPaiva;
