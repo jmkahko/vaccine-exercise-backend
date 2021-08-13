@@ -324,7 +324,23 @@ const VaccinesController = {
         console.log(error); // Lähetetään virhe myös konsoliin.
         res.json(error); // Palautetaan virhe JSON muodossa.
       }
-      res.json(maara);
+
+      // Alustetaan tyhjä taulukko
+      let taulukkoKoko = [];
+      
+      // Käydään saatu data läpi ja muotoillaan, että yhdessä objecktissa on sairaala, rokote, sukupuoli ja määrä
+      for (let x = 0; x < maara.length; x++) {
+        let taulukkoKerta = []; // Alustetaan joka kerta taulukkoKerta tyhjänä
+        taulukkoKerta.push(["sairaala", maara[x]._id.sairaala.join()]) // Lisätään taulukkoon .join()-arvolla saadaan muutettu taulukko arvo ei taulukoksi
+        taulukkoKerta.push(["rokote", maara[x]._id.rokote.join()])
+        taulukkoKerta.push(["sukupuoli", maara[x]._id.sukupuoli])
+        taulukkoKerta.push(["maara", maara[x].count])
+
+        // Tehdään taulukkoKerta taulukosta objeckti ja tallennetaan taulukkoKoko taulukkoon
+        let taulukkoKertaToObject = Object.fromEntries(new Map(taulukkoKerta));
+        taulukkoKoko.push(taulukkoKertaToObject);
+      }
+      res.json(taulukkoKoko);
     });
   },
 
