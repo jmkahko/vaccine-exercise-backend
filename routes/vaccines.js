@@ -27,7 +27,7 @@ router.get('/howManyVaccinesExpireNext10Days/:date', VaccinesController.howManyV
 router.get('/howManyVaccinesAreLeftToUsePerHealth/:date', VaccinesController.howManyVaccinesAreLeftToUsePerHealth);
 
 // Millä rokotteella on missäkin sairaalassa rokotettu sukupuolen mukaan
-router.get('/howManyGenderVaccinationsPerHealt/:date', VaccinesController.howManyGenderVaccinationsPerHealt);
+router.get('/howManyGenderVaccinationsPerHealth/:date', VaccinesController.howManyGenderVaccinationsPerHealth);
 
 // Kuinka monta mitäkin sukupuolta on rokotettu
 router.get('/howManyGenderVaccinations/:date', VaccinesController.howManyGenderVaccinations);

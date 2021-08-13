@@ -110,7 +110,7 @@ describe('Reittien testaus', function () {
 
   it('Rokotetut sukupuolen, sairaalan ja rokotteen mukaan', function (done) {
     server
-      .get(`/vaccines/howManyGenderVaccinationsPerHealt/${dateStart}`)
+      .get(`/vaccines/howManyGenderVaccinationsPerHealth/${dateStart}`)
       .expect("Content-type", /json/)
       .expect(200) // THis is HTTP response
       .end(function (err, res) {

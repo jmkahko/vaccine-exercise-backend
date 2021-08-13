@@ -296,7 +296,7 @@ const VaccinesController = {
   },
 
   // Millä rokotteella on missäkin sairaalassa rokotettu sukupuolen mukaan
-  howManyGenderVaccinationsPerHealt: (req, res) => {
+  howManyGenderVaccinationsPerHealth: (req, res) => {
     // Url reitistä saatu päivämäärä
     let saatuPaiva = req.params.date;
 
